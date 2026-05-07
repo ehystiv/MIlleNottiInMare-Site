@@ -59,8 +59,8 @@ const { Content } = await char.render();
           </h3>
           <ul class="space-y-2">
             {char.data.background.map((item: string) => (
-              <li class="flex items-start gap-2 text-sm text-parchment-300">
-                <span class="text-gold-500 mt-0.5 shrink-0">◆</span>
+              <li class="flex items-center gap-2 text-sm text-parchment-300">
+                <span class="text-gold-500 shrink-0">◆</span>
                 <span>{item}</span>
               </li>
             ))}
@@ -75,8 +75,8 @@ const { Content } = await char.render();
         <ul class="space-y-2">
           {
             char.data.skills.map((skill: string) => (
-              <li class="flex items-start gap-2 text-sm text-parchment-300">
-                <span class="text-gold-500 mt-0.5 shrink-0">◆</span>
+              <li class="flex items-center gap-2 text-sm text-parchment-300">
+                <span class="text-gold-500 shrink-0">◆</span>
                 <span>{skill}</span>
               </li>
             ))
