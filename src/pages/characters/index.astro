@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const characters = await getCollection('characters');
+---
+
+<BaseLayout title="Personaggi Giocanti">
+  <div class="mb-10">
+    <div class="text-rum-500/70 text-xs tracking-widest uppercase mb-2">Eroi della storia</div>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-parchment-200">Personaggi Giocanti</h1>
+    <div class="flex items-center gap-4 mt-4">
+      <div class="w-24 h-px bg-gold-600/50"></div>
+      <span class="text-gold-600/50 text-sm">✦</span>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    {characters.map((char) => (
+      <a href={`/characters/${char.slug}/`} class="group block bg-wood-800 border border-gold-600/30 rounded overflow-hidden hover:border-rum-500/60 transition-all duration-300">
+        <!-- Placeholder immagine -->
+        <div class="aspect-[16/9] bg-wood-900 border-b border-gold-600/30 flex items-center justify-center relative overflow-hidden">
+          <div class="absolute inset-2 border border-gold-600/30 border-dashed rounded flex items-center justify-center">
+            <span class="text-parchment-500 text-sm font-serif italic">[Ritratto di {char.data.name}]</span>
+          </div>
+        </div>
+        <div class="p-5">
+          <div class="text-gold-500/80 text-xs tracking-widest uppercase mb-1">{char.data.nation}</div>
+          <h2 class="font-serif text-2xl font-bold text-parchment-200 mb-3 group-hover:text-rum-300 transition-colors">
+            {char.data.name}
+          </h2>
+          <p class="text-parchment-400 text-sm leading-relaxed line-clamp-3 italic">{char.data.background}</p>
+          <div class="mt-4 flex flex-wrap gap-2">
+            {char.data.skills.slice(0, 3).map((skill: string) => (
+              <span class="text-xs text-rum-400/90 bg-rum-500/10 border border-rum-600/30 px-2 py-0.5 rounded">
+                {skill}
+              </span>
+            ))}
+          </div>
+        </div>
+      </a>
+    ))}
+  </div>
+</BaseLayout>

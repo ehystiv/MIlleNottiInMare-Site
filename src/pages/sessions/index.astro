@@ -1,0 +1,130 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const sessions = await getCollection('sessions');
+const sorted = sessions.sort((a, b) => a.data.session_number - b.data.session_number);
+
+const romanNumerals = ['I','II','III','IV','V','VI','VII','VIII','IX','X'];
+
+// Raggruppa per libro
+const bookMap = new Map<number, typeof sorted>();
+for (const s of sorted) {
+  const n = s.data.book.number;
+  if (!bookMap.has(n)) bookMap.set(n, []);
+  bookMap.get(n)!.push(s);
+}
+
+// Struttura pre-calcolata per il template
+const books = Array.from(bookMap.entries())
+  .sort(([a], [b]) => a - b)
+  .map(([bookNum, bookSessions]) => {
+    const bookTitle = bookSessions[0].data.book.title;
+    const roman = romanNumerals[bookNum - 1] ?? String(bookNum);
+    const storie = bookSessions.filter(s => s.data.type === 'storia');
+    const capitoli = bookSessions.filter(s => s.data.type === 'capitolo');
+
+    const arcMapRaw = new Map<string, typeof capitoli>();
+    for (const c of capitoli) {
+      const arc = c.data.arc ?? 'Senza titolo';
+      if (!arcMapRaw.has(arc)) arcMapRaw.set(arc, []);
+      arcMapRaw.get(arc)!.push(c);
+    }
+    const arcs = Array.from(arcMapRaw.entries());
+
+    return { bookNum, bookTitle, roman, storie, arcs };
+  });
+---
+
+<BaseLayout title="Diario delle Sessioni">
+  <div class="mb-10">
+    <div class="text-gold-500/60 text-xs tracking-widest uppercase mb-2">Archivio</div>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-parchment-200">Diario delle Sessioni</h1>
+    <div class="flex items-center gap-4 mt-4">
+      <div class="w-24 h-px bg-gold-600/50"></div>
+      <span class="text-gold-600/50 text-sm">✦</span>
+    </div>
+  </div>
+
+  <div class="space-y-14">
+    {books.map(({ bookNum, bookTitle, roman, storie, arcs }) => (
+      <section>
+        {/* Intestazione libro */}
+        <div class="flex items-center gap-4 mb-6">
+          <span class="text-gold-500 text-xl shrink-0">📖</span>
+          <div>
+            <div class="text-gold-500/60 text-xs tracking-widest uppercase">Libro {roman}</div>
+            <h2 class="font-serif text-2xl font-bold text-parchment-100">{bookTitle}</h2>
+          </div>
+          <div class="flex-1 h-px bg-gold-600/20 ml-2"></div>
+        </div>
+
+        <div class="space-y-6 pl-2 border-l-2 border-gold-600/15 ml-4">
+
+          {/* Storie (OneShot) */}
+          {storie.map(session => (
+            <a href={`/sessions/${session.slug}/`} class="group flex items-start gap-5 bg-wood-800 border border-gold-600/25 rounded p-5 hover:border-gold-500/50 hover:bg-wood-700 transition-all duration-300">
+              <div class="shrink-0 text-center w-12">
+                <div class="font-mono text-rum-400 text-xl font-bold leading-none">
+                  {String(session.data.session_number).padStart(2, '0')}
+                </div>
+                <div class="mt-1">
+                  <span class="text-xs px-1.5 py-0.5 rounded bg-teal-500/15 border border-teal-500/30 text-teal-400">
+                    storia
+                  </span>
+                </div>
+              </div>
+              <div class="border-l border-gold-600/20 pl-5 flex-1">
+                <div class="text-parchment-500 text-xs mb-1">
+                  {session.data.date.toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' })}
+                </div>
+                <h3 class="font-serif text-xl font-bold text-parchment-100 mb-2 group-hover:text-gold-300 transition-colors">
+                  {session.data.title}
+                </h3>
+                <p class="text-parchment-400 text-sm leading-relaxed">{session.data.summary}</p>
+              </div>
+              <div class="shrink-0 text-gold-600/40 group-hover:text-gold-500 transition-colors text-xl self-center">→</div>
+            </a>
+          ))}
+
+          {/* Capitoli raggruppati per arco */}
+          {arcs.map(([arcName, arcSessions]) => (
+            <div>
+              <div class="flex items-center gap-3 mb-3">
+                <span class="text-rum-500/70 text-xs tracking-widest uppercase">Arco</span>
+                <span class="font-serif text-parchment-300 italic">"{arcName}"</span>
+                <div class="flex-1 h-px bg-rum-600/15"></div>
+              </div>
+              <div class="space-y-3">
+                {arcSessions.map(session => (
+                  <a href={`/sessions/${session.slug}/`} class="group flex items-start gap-5 bg-wood-800 border border-rum-600/20 rounded p-5 hover:border-rum-500/50 hover:bg-wood-700 transition-all duration-300">
+                    <div class="shrink-0 text-center w-12">
+                      <div class="font-mono text-rum-400 text-xl font-bold leading-none">
+                        {String(session.data.session_number).padStart(2, '0')}
+                      </div>
+                      <div class="mt-1">
+                        <span class="text-xs px-1.5 py-0.5 rounded bg-rum-500/15 border border-rum-500/30 text-rum-400">
+                          {session.data.arc_part}/{session.data.arc_total}
+                        </span>
+                      </div>
+                    </div>
+                    <div class="border-l border-rum-600/20 pl-5 flex-1">
+                      <div class="text-parchment-500 text-xs mb-1">
+                        {session.data.date.toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' })}
+                      </div>
+                      <h3 class="font-serif text-xl font-bold text-parchment-100 mb-2 group-hover:text-rum-300 transition-colors">
+                        {session.data.title}
+                      </h3>
+                      <p class="text-parchment-400 text-sm leading-relaxed">{session.data.summary}</p>
+                    </div>
+                    <div class="shrink-0 text-rum-600/40 group-hover:text-rum-500 transition-colors text-xl self-center">→</div>
+                  </a>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    ))}
+  </div>
+</BaseLayout>

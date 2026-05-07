@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const characters = await getCollection('characters');
+  return characters.map((char) => ({
+    params: { slug: char.slug },
+    props: { char },
+  }));
+}
+
+const { char } = Astro.props;
+const { Content } = await char.render();
+---
+
+<BaseLayout title={char.data.name}>
+  <div class="mb-8">
+    <a href="/characters/" class="text-parchment-500 hover:text-rum-400 text-sm transition-colors">← Tutti i personaggi</a>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <!-- Sidebar -->
+    <div class="lg:col-span-1">
+      <!-- Placeholder immagine -->
+      <div class="aspect-[3/4] bg-wood-800 border border-gold-600/35 rounded flex items-center justify-center mb-5 relative overflow-hidden">
+        <div class="absolute inset-3 border border-gold-600/35 border-dashed rounded flex items-center justify-center">
+          <span class="text-parchment-500 text-sm font-serif italic text-center px-3">[Ritratto di {char.data.name}]</span>
+        </div>
+      </div>
+
+      <div class="text-gold-500/70 text-xs tracking-widest uppercase mb-1">{char.data.nation}</div>
+      <h1 class="font-serif text-3xl font-bold text-parchment-200 mb-5">{char.data.name}</h1>
+
+      <div class="bg-wood-800 border border-gold-600/30 rounded p-4">
+        <h3 class="text-xs uppercase tracking-widest text-gold-500/60 mb-3">Abilità principali</h3>
+        <ul class="space-y-2">
+          {char.data.skills.map((skill: string) => (
+            <li class="flex items-start gap-2 text-sm text-parchment-300">
+              <span class="text-gold-500 mt-0.5 shrink-0">◆</span>
+              <span>{skill}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <!-- Contenuto principale -->
+    <div class="lg:col-span-2">
+      <blockquote class="font-serif italic text-parchment-400 border-l-4 border-gold-600/60 pl-5 py-2 mb-8 bg-wood-800/50 rounded-r">
+        {char.data.background}
+      </blockquote>
+      <div class="prose prose-invert prose-gold max-w-none">
+        <Content />
+      </div>
+    </div>
+  </div>
+</BaseLayout>

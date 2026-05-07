@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const factions = await getCollection('factions');
+---
+
+<BaseLayout title="Fazioni e Organizzazioni">
+  <div class="mb-10">
+    <div class="text-rum-500/70 text-xs tracking-widest uppercase mb-2">Poteri nell'ombra</div>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-parchment-200">Fazioni e Organizzazioni</h1>
+    <div class="flex items-center gap-4 mt-4">
+      <div class="w-24 h-px bg-gold-600/50"></div>
+      <span class="text-gold-600/50 text-sm">✦</span>
+    </div>
+  </div>
+
+  <div class="space-y-5">
+    {factions.map((faction) => (
+      <a href={`/factions/${faction.slug}/`} class="group block bg-wood-800 border border-gold-600/30 rounded p-6 hover:border-rum-500/60 hover:bg-wood-700 transition-all duration-300">
+        <h2 class="font-serif text-2xl font-bold text-parchment-200 mb-2 group-hover:text-rum-300 transition-colors">
+          {faction.data.name}
+        </h2>
+        <p class="text-parchment-400 text-sm leading-relaxed mb-4">{faction.data.description}</p>
+        <div class="border-t border-gold-600/20 pt-3">
+          <span class="text-gold-600/60 text-xs uppercase tracking-wider">Obiettivo dichiarato: </span>
+          <span class="text-parchment-500 text-xs italic">{faction.data.goals.substring(0, 120)}…</span>
+        </div>
+      </a>
+    ))}
+  </div>
+</BaseLayout>

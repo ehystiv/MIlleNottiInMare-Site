@@ -1,0 +1,269 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', Georgia, serif;
+  }
+}
+
+@layer components {
+  .prose-gold {
+    --tw-prose-body: #e8d8b8;
+    --tw-prose-headings: #f5ecd7;
+    --tw-prose-lead: #c8b090;
+    --tw-prose-links: #e07b39;
+    --tw-prose-bold: #f5ecd7;
+    --tw-prose-counters: #d4a84b;
+    --tw-prose-bullets: #d4a84b;
+    --tw-prose-hr: rgba(107, 76, 32, 0.4);
+    --tw-prose-quotes: #e8d8b8;
+    --tw-prose-quote-borders: rgba(212, 168, 75, 0.5);
+    --tw-prose-captions: #a08060;
+    --tw-prose-code: #f0d080;
+    --tw-prose-pre-code: #f5ecd7;
+    --tw-prose-pre-bg: #251a0c;
+    --tw-prose-th-borders: rgba(107, 76, 32, 0.4);
+    --tw-prose-td-borders: rgba(107, 76, 32, 0.2);
+  }
+
+  .prose-gold strong {
+    color: #f5ecd7;
+  }
+
+  .prose-gold blockquote {
+    border-left-color: rgba(212, 168, 75, 0.5);
+    background: rgba(37, 26, 12, 0.6);
+    padding: 0.75rem 1.25rem;
+    border-radius: 0 0.375rem 0.375rem 0;
+    font-style: italic;
+  }
+
+  .prose-gold h2 {
+    border-bottom: 1px solid rgba(107, 76, 32, 0.35);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .prose-gold a {
+    color: #e07b39;
+    text-decoration: underline;
+    text-decoration-color: rgba(224, 123, 57, 0.4);
+    transition: color 0.2s, text-decoration-color 0.2s;
+  }
+
+  .prose-gold a:hover {
+    color: #f0a060;
+    text-decoration-color: rgba(224, 123, 57, 0.7);
+  }
+
+  .prose-gold hr {
+    border-color: rgba(107, 76, 32, 0.3);
+  }
+}
+
+@layer components {
+  /* Pergamena per i diari di sessione */
+  .parchment {
+    background-color: #e8d090;
+    background-image:
+      /* foxing — piccole macchie brune tipiche della carta invecchiata */
+      radial-gradient(ellipse 13px 10px at 21% 13%, rgba(110, 55, 8,  0.30) 0%, transparent 100%),
+      radial-gradient(ellipse  8px  7px at 64%  7%, rgba(125, 65, 12, 0.24) 0%, transparent 100%),
+      radial-gradient(ellipse 15px 11px at 87% 51%, rgba(105, 52, 8,  0.26) 0%, transparent 100%),
+      radial-gradient(ellipse  9px  8px at 39% 81%, rgba(118, 60, 10, 0.22) 0%, transparent 100%),
+      radial-gradient(ellipse 11px  9px at 73% 88%, rgba(100, 50, 6,  0.20) 0%, transparent 100%),
+      radial-gradient(ellipse  7px  6px at 11% 47%, rgba(115, 58, 9,  0.18) 0%, transparent 100%),
+      /* grande macchia d'acqua angolo alto-sinistra */
+      radial-gradient(ellipse 210px 150px at 2% 1%,
+        rgba(110, 70, 12, 0.32) 0%,
+        rgba(110, 70, 12, 0.10) 55%,
+        transparent 80%),
+      /* macchia d'acqua angolo basso-destra */
+      radial-gradient(ellipse 180px 120px at 97% 98%,
+        rgba(135, 88, 18, 0.28) 0%,
+        rgba(135, 88, 18, 0.08) 55%,
+        transparent 80%),
+      /* alone umidità centro-sinistra */
+      radial-gradient(ellipse 130px 100px at 14% 58%, rgba(75, 85, 45, 0.10) 0%, transparent 70%),
+      /* zona più dorata in alto a destra */
+      radial-gradient(ellipse 260px 180px at 96% 3%,  rgba(200, 158, 40, 0.22) 0%, transparent 65%),
+      /* variazione cromatica diagonale — fascia più chiara */
+      linear-gradient(128deg, transparent 25%, rgba(255, 248, 210, 0.18) 48%, transparent 68%),
+      /* variazione cromatica — angolo basso-sinistra più scuro/caldo */
+      radial-gradient(ellipse 300px 200px at 0% 100%, rgba(150, 100, 20, 0.14) 0%, transparent 60%),
+      /* grana fine (carta non patinata) */
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.14'/%3E%3C/svg%3E"),
+      /* grana grossa (fibra carta) */
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='500'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.28' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='500' height='500' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");
+    box-shadow:
+      inset 0 0 130px rgba(90, 55, 10, 0.30),
+      inset 0 0  50px rgba(80, 50, 8,  0.20),
+      inset 70px  0   90px rgba(90, 55, 10, 0.10),
+      inset -70px 0   90px rgba(90, 55, 10, 0.10),
+      0 6px 32px rgba(0, 0, 0, 0.55);
+    border: 1px solid rgba(139, 96, 32, 0.45);
+    border-radius: 0.375rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Bordo interno invecchiato */
+  .parchment::before {
+    content: '';
+    position: absolute;
+    inset: 8px;
+    border: 1px solid rgba(139, 96, 32, 0.18);
+    border-radius: 2px;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Piega diagonale della carta + alone sul bordo destro */
+  .parchment::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      /* piega diagonale sottile */
+      linear-gradient(
+        122deg,
+        transparent 0%,
+        transparent 36%,
+        rgba(101, 67, 20, 0.04) 37%,
+        rgba(255, 245, 220, 0.06) 37.6%,
+        transparent 38.2%
+      ),
+      /* bordo destro consumato */
+      linear-gradient(to left,  rgba(101, 67, 20, 0.08) 0%, transparent 6%),
+      /* bordo sinistro consumato */
+      linear-gradient(to right, rgba(101, 67, 20, 0.06) 0%, transparent 4%);
+    pointer-events: none;
+    border-radius: 0.375rem;
+    z-index: 1;
+  }
+
+  .prose-parchment {
+    --tw-prose-body: #3d2b10;
+    --tw-prose-headings: #1e1208;
+    --tw-prose-lead: #5a3e1e;
+    --tw-prose-links: #8b4010;
+    --tw-prose-bold: #1e1208;
+    --tw-prose-counters: #8b6020;
+    --tw-prose-bullets: #8b6020;
+    --tw-prose-hr: rgba(101, 67, 20, 0.35);
+    --tw-prose-quotes: #4a3018;
+    --tw-prose-quote-borders: rgba(139, 96, 32, 0.5);
+    --tw-prose-captions: #7a5a30;
+    --tw-prose-code: #6b3010;
+    --tw-prose-pre-code: #2c1f0e;
+    --tw-prose-pre-bg: #e8d4a8;
+    --tw-prose-th-borders: rgba(101, 67, 20, 0.3);
+    --tw-prose-td-borders: rgba(101, 67, 20, 0.15);
+  }
+
+  .prose-parchment strong {
+    color: #1e1208;
+  }
+
+  .prose-parchment blockquote {
+    border-left-color: rgba(139, 96, 32, 0.55);
+    background: rgba(101, 67, 20, 0.08);
+    padding: 0.75rem 1.25rem;
+    border-radius: 0 0.375rem 0.375rem 0;
+    font-style: italic;
+    color: #4a3018;
+  }
+
+  .prose-parchment h2 {
+    border-bottom: 1px solid rgba(101, 67, 20, 0.3);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    color: #1e1208;
+  }
+
+  .prose-parchment a {
+    color: #8b4010;
+    text-decoration: underline;
+    text-decoration-color: rgba(139, 64, 16, 0.4);
+    transition: color 0.2s;
+  }
+
+  .prose-parchment a:hover {
+    color: #b05018;
+  }
+
+  .prose-parchment hr {
+    border-color: rgba(101, 67, 20, 0.3);
+  }
+}
+
+/* ── Animazioni pirate ── */
+
+@keyframes bob {
+  0%, 100% { transform: translateY(0px) rotate(-0.8deg); }
+  50%       { transform: translateY(-7px) rotate(0.8deg); }
+}
+
+@keyframes flicker {
+  0%, 100% {
+    opacity: 1;
+    text-shadow:
+      0 0 8px rgba(212, 168, 75, 0.5),
+      0 0 20px rgba(224, 123, 57, 0.2);
+  }
+  20% {
+    opacity: 0.92;
+    text-shadow:
+      0 0 12px rgba(224, 123, 57, 0.7),
+      0 0 30px rgba(212, 168, 75, 0.15);
+  }
+  50% {
+    opacity: 0.96;
+    text-shadow:
+      0 0 6px rgba(212, 168, 75, 0.3),
+      0 0 16px rgba(224, 123, 57, 0.1);
+  }
+  80% {
+    opacity: 0.89;
+    text-shadow:
+      0 0 14px rgba(212, 168, 75, 0.6),
+      0 0 24px rgba(224, 123, 57, 0.25);
+  }
+}
+
+@keyframes wave-move {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-bob {
+  animation: bob 4s ease-in-out infinite;
+  display: inline-block;
+}
+
+.animate-bob-slow {
+  animation: bob 6s ease-in-out infinite;
+  display: inline-block;
+}
+
+.animate-bob-delayed {
+  animation: bob 4s ease-in-out 1.5s infinite;
+  display: inline-block;
+}
+
+.animate-flicker {
+  animation: flicker 4s ease-in-out infinite;
+}
+
+.wave-scroll {
+  animation: wave-move 8s linear infinite;
+}
+
+.wave-scroll-slow {
+  animation: wave-move 12s linear infinite reverse;
+}

@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const npcs = await getCollection('npcs');
+
+const alignmentConfig: Record<string, { label: string; color: string; dot: string }> = {
+  alleato: { label: 'Alleato', color: 'text-emerald-400', dot: 'bg-emerald-500' },
+  antagonista: { label: 'Antagonista', color: 'text-red-400', dot: 'bg-red-500' },
+  neutrale: { label: 'Neutrale', color: 'text-gold-400', dot: 'bg-gold-500' },
+};
+---
+
+<BaseLayout title="PNG Importanti">
+  <div class="mb-10">
+    <div class="text-rum-500/70 text-xs tracking-widest uppercase mb-2">Figure chiave</div>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-parchment-200">PNG Importanti</h1>
+    <div class="flex items-center gap-4 mt-4">
+      <div class="w-24 h-px bg-gold-600/50"></div>
+      <span class="text-gold-600/50 text-sm">✦</span>
+    </div>
+  </div>
+
+  <div class="space-y-4">
+    {npcs.map((npc) => {
+      const align = alignmentConfig[npc.data.alignment];
+      return (
+        <a href={`/npcs/${npc.slug}/`} class="group flex items-start gap-5 bg-wood-800 border border-gold-600/30 rounded p-5 hover:border-rum-500/60 hover:bg-wood-700 transition-all duration-300">
+          <div class="shrink-0 mt-1">
+            <div class={`w-2.5 h-2.5 rounded-full ${align.dot}`}></div>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-baseline gap-3 mb-1 flex-wrap">
+              <h2 class="font-serif text-xl font-bold text-parchment-200 group-hover:text-rum-300 transition-colors">
+                {npc.data.name}
+              </h2>
+              <span class={`text-xs ${align.color}`}>{align.label}</span>
+            </div>
+            <p class="text-gold-500/80 text-xs tracking-wide uppercase mb-2">{npc.data.role}</p>
+            <p class="text-parchment-400 text-sm italic">{npc.data.description}</p>
+          </div>
+          <div class="shrink-0 text-gold-600/40 group-hover:text-gold-500 transition-colors text-xl self-center">→</div>
+        </a>
+      );
+    })}
+  </div>
+</BaseLayout>

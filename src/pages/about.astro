@@ -1,0 +1,100 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Informazioni">
+  <div class="mb-10">
+    <div class="text-rum-500/70 text-xs tracking-widest uppercase mb-2">Il tavolo</div>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold text-parchment-200">Informazioni</h1>
+    <div class="flex items-center gap-4 mt-4">
+      <div class="w-24 h-px bg-gold-600/50"></div>
+      <span class="text-gold-600/50 text-sm">✦</span>
+    </div>
+  </div>
+
+  <div class="space-y-10 max-w-3xl">
+
+    <!-- Sezione 1 -->
+    <section class="bg-wood-800/40 border border-gold-600/20 rounded p-6">
+      <h2 class="font-serif text-2xl font-bold text-parchment-200 mb-1">La Taverna del Pescecane Smarrito</h2>
+      <p class="text-gold-500/60 text-xs italic mb-4">"Una locanda o una bettola? Dipende un po' da chi sei"</p>
+      <h3 class="text-sm uppercase tracking-widest text-gold-500/70 mb-2">Quando, dove, come si gioca?</h3>
+      <p class="text-parchment-300 leading-relaxed mb-4">
+        "Mille Notti in Mare" non è una campagna, ma nemmeno una OneShot. È un mix delle due cose,
+        per permettere a chiunque di giocare quando e come vuole, con lo stesso personaggio o con più personaggi.
+        Non ha cadenza regolare, non ha luogo fisso: si gioca ogni qual volta che si può e si vuole.
+      </p>
+      <p class="text-parchment-300 leading-relaxed mb-4">
+        Le sessioni possono essere OneShot o micro-campagne (2–4 sessioni al massimo),
+        senza un party fisso — solo giocatori volenterosi di naufragare per le coste del Nuovo Mondo di Théah.
+      </p>
+      <p class="text-parchment-400 text-sm italic">
+        Il quando si decide con almeno 3–4 giorni di anticipo, cercando un luogo comodo a tutti.
+      </p>
+    </section>
+
+    <!-- Sezione 2 -->
+    <section class="bg-wood-800/40 border border-gold-600/20 rounded p-6">
+      <h2 class="font-serif text-2xl font-bold text-parchment-200 mb-1">Beer-first o Game-first?</h2>
+      <p class="text-gold-500/60 text-xs italic mb-4">"Grog-first, ovviamente!"</p>
+      <p class="text-parchment-300 leading-relaxed">
+        Sebbene sia richiesto un minimo di serietà nel gioco, nessuna sessione verterà mai sull'essere "pesante".
+        Le tematiche potranno non essere sempre leggere, ma l'obiettivo è passare una divertente serata al tavolo.
+        È prevista la X card qualora la tematica sia troppo forte.
+      </p>
+    </section>
+
+    <!-- Sezione 3 -->
+    <section class="bg-wood-800/40 border border-gold-600/20 rounded p-6">
+      <h2 class="font-serif text-2xl font-bold text-parchment-200 mb-1">Un Gioco di Navi</h2>
+      <p class="text-gold-500/60 text-xs italic mb-4">"7th Sea, corpo di mille balene!"</p>
+      <p class="text-parchment-300 leading-relaxed mb-4">
+        Il regolamento è quello del manuale base di 7th Sea, più eventuali espansioni concordate col Master.
+        Niente HomeRules a meno di casi eccezionali, concordate sul momento con i giocatori presenti al tavolo.
+        L'ambientazione è Théah: i personaggi possono venire da qualunque delle terre presenti nei manuali.
+      </p>
+    </section>
+
+    <!-- Sezione 4 -->
+    <section class="bg-wood-800/40 border border-gold-600/20 rounded p-6">
+      <h2 class="font-serif text-2xl font-bold text-parchment-200 mb-1">Crea il tuo PG</h2>
+      <p class="text-gold-500/60 text-xs italic mb-4">"Yo soy soltanto un cameriere señor"</p>
+      <p class="text-parchment-300 leading-relaxed mb-4">
+        Le regole per la creazione del personaggio sono nel manuale base. Per il background da fornire al Master,
+        rispondi al gioco delle 20 domande riportate sul manuale — in modo puntuale o scrivendo un testo che le unisca tutte.
+      </p>
+      <p class="text-parchment-300 leading-relaxed">
+        Poniti obiettivi alti, ma sappi che non saranno sempre raggiungibili. O magari, ci vuole solo tempo.
+      </p>
+      <p class="text-parchment-500 text-sm italic mt-3">— Stiv, il master che non manteneva le promesse</p>
+    </section>
+
+    <!-- Sezione 5 -->
+    <section class="bg-wood-800/40 border border-gold-600/20 rounded p-6">
+      <h2 class="font-serif text-2xl font-bold text-parchment-200 mb-1">Diario di Bordo & Ritratto</h2>
+      <p class="text-gold-500/60 text-xs italic mb-4">"Scrivi la tua storia e disegna il tuo personaggio"</p>
+      <p class="text-parchment-300 leading-relaxed mb-4">
+        Se ti è piaciuto il tuo personaggio, puoi scrivere il suo <strong class="text-parchment-200">Diario di Bordo</strong>:
+        qualche riga postuma agli eventi di ogni sessione, dal punto di vista del personaggio.
+        Ogni voce viene pubblicata su questo sito accanto al resoconto della sessione.
+      </p>
+      <p class="text-parchment-300 leading-relaxed">
+        Puoi anche contribuire con un <strong class="text-parchment-200">Ritratto</strong> del tuo personaggio
+        (digitale o digitalizzato), che accompagnerà il diario di bordo nella sua scheda.
+      </p>
+    </section>
+
+    <!-- Parole chiave -->
+    <section>
+      <h2 class="font-serif text-xl font-bold text-parchment-200 mb-4">Le Parole Chiave</h2>
+      <div class="flex flex-wrap gap-2">
+        {['Avventura', 'Tesori', 'Fama', 'Gloria', 'Onore', 'Rispetto', 'Grog', 'Sabbia', 'Birra', 'Palme', 'Oro', 'Merci', 'Ancora Birra!'].map((kw) => (
+          <span class="text-sm text-rum-400/90 bg-rum-500/10 border border-rum-600/30 px-3 py-1 rounded-full">
+            {kw}
+          </span>
+        ))}
+      </div>
+    </section>
+
+  </div>
+</BaseLayout>

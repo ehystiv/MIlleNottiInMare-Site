@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const npcs = await getCollection('npcs');
+  return npcs.map((npc) => ({
+    params: { slug: npc.slug },
+    props: { npc },
+  }));
+}
+
+const { npc } = Astro.props;
+const { Content } = await npc.render();
+
+const alignmentConfig: Record<string, { label: string; color: string; bg: string }> = {
+  alleato: { label: 'Alleato', color: 'text-emerald-400', bg: 'bg-emerald-500/10 border-emerald-500/30' },
+  antagonista: { label: 'Antagonista', color: 'text-red-400', bg: 'bg-red-500/10 border-red-500/30' },
+  neutrale: { label: 'Neutrale', color: 'text-gold-400', bg: 'bg-gold-500/10 border-gold-500/30' },
+};
+
+const align = alignmentConfig[npc.data.alignment];
+---
+
+<BaseLayout title={npc.data.name}>
+  <div class="mb-8">
+    <a href="/npcs/" class="text-parchment-500 hover:text-rum-400 text-sm transition-colors">← Tutti i PNG</a>
+  </div>
+
+  <header class="mb-8 pb-6 border-b border-gold-600/30">
+    <div class="flex items-center gap-3 mb-3 flex-wrap">
+      <h1 class="font-serif text-4xl md:text-5xl font-bold text-parchment-200">{npc.data.name}</h1>
+      <span class={`text-xs px-2 py-1 rounded border ${align.bg} ${align.color}`}>
+        {align.label}
+      </span>
+    </div>
+    <p class="text-gold-500/80 text-xs tracking-widest uppercase mb-4">{npc.data.role}</p>
+    <blockquote class="font-serif italic text-parchment-400 border-l-4 border-gold-600/60 pl-5 py-1">
+      {npc.data.description}
+    </blockquote>
+  </header>
+
+  <div class="prose prose-invert prose-gold max-w-none">
+    <Content />
+  </div>
+</BaseLayout>

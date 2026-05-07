@@ -1,0 +1,126 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+const { title, description = "Mille Notti in Mare — Campagna 7th Sea" } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title} | Mille Notti in Mare</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  </head>
+  <body class="min-h-screen bg-wood-900 text-parchment-300 font-sans antialiased">
+    <!-- Texture overlay sottile -->
+    <div class="fixed inset-0 pointer-events-none opacity-[0.03] bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJub2lzZSI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuNjUiIG51bU9jdGF2ZXM9IjMiIHN0aXRjaFRpbGVzPSJzdGl0Y2giLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjMwMCIgZmlsdGVyPSJ1cmwoI25vaXNlKSIvPjwvc3ZnPg==')] bg-repeat z-50"></div>
+
+    <!-- Header -->
+    <header class="border-b border-gold-600/40 bg-wood-950/90 backdrop-blur-sm sticky top-0 z-40">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between py-3 gap-6">
+        <!-- Logo -->
+        <a href="/" class="group flex items-center gap-3 shrink-0">
+          <span class="text-gold-500 text-2xl select-none animate-bob">⚓</span>
+          <div>
+            <div class="font-serif font-bold text-parchment-200 text-lg leading-tight group-hover:text-rum-300 transition-colors">
+              Mille Notti in Mare
+            </div>
+            <div class="text-gold-600 text-xs tracking-widest uppercase hidden sm:block">Campagna 7th Sea · Théah</div>
+          </div>
+        </a>
+
+        <!-- Nav desktop -->
+        <nav class="hidden md:flex items-center gap-1">
+          {[
+            { href: '/sessions/', label: 'Diario Sessioni' },
+            { href: '/characters/', label: 'PG' },
+            { href: '/npcs/', label: 'PNG' },
+            { href: '/factions/', label: 'Fazioni' },
+            { href: '/about/', label: 'Informazioni' },
+          ].map(({ href, label }) => (
+            <a
+              href={href}
+              class="px-3 py-1 text-sm text-parchment-400 hover:text-rum-300 hover:bg-rum-500/10 rounded transition-all duration-200 tracking-wide"
+            >
+              {label}
+            </a>
+          ))}
+        </nav>
+
+        <!-- Hamburger mobile -->
+        <button id="nav-toggle" class="md:hidden text-parchment-400 hover:text-gold-500 transition-colors p-2 shrink-0">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Nav mobile (collassabile) -->
+      <nav id="mobile-nav" class="hidden flex-col gap-1 pb-3 px-4 sm:px-6 border-t border-gold-600/20 mt-1 pt-2">
+        {[
+          { href: '/sessions/', label: 'Diario Sessioni' },
+          { href: '/characters/', label: 'PG' },
+          { href: '/npcs/', label: 'PNG' },
+          { href: '/factions/', label: 'Fazioni' },
+          { href: '/about/', label: 'Informazioni' },
+        ].map(({ href, label }) => (
+          <a href={href} class="px-3 py-2 text-sm text-parchment-400 hover:text-rum-300 border-l-2 border-transparent hover:border-gold-500 transition-all">
+            {label}
+          </a>
+        ))}
+      </nav>
+
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 py-10">
+      <slot />
+    </main>
+
+    <!-- Separatore decorativo -->
+    <div class="max-w-6xl mx-auto px-6 my-4 flex items-center gap-4 opacity-30">
+      <div class="flex-1 h-px bg-gold-600"></div>
+      <span class="text-gold-600 text-lg animate-bob-slow">✦</span>
+      <div class="flex-1 h-px bg-gold-600"></div>
+    </div>
+
+    <!-- Onda decorativa sopra footer -->
+    <div class="w-full overflow-hidden h-6 relative pointer-events-none">
+      <div class="wave-scroll-slow flex" style="width: 200%;">
+        <svg viewBox="0 0 1200 24" preserveAspectRatio="none" class="w-1/2 h-6 shrink-0" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,12 C150,20 300,4 450,12 C600,20 750,4 900,12 C1050,20 1150,4 1200,12 L1200,0 L0,0 Z"
+                fill="#6b4c20" fill-opacity="0.35"/>
+        </svg>
+        <svg viewBox="0 0 1200 24" preserveAspectRatio="none" class="w-1/2 h-6 shrink-0" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,12 C150,20 300,4 450,12 C600,20 750,4 900,12 C1050,20 1150,4 1200,12 L1200,0 L0,0 Z"
+                fill="#6b4c20" fill-opacity="0.35"/>
+        </svg>
+      </div>
+    </div>
+
+    <footer class="border-t border-gold-600/20 py-6 text-center">
+      <p class="text-parchment-500 text-sm font-serif italic">
+        "Il mare non perdona. Ma a volte, se sei abbastanza disperato, ascolta."
+      </p>
+      <p class="text-parchment-500/40 text-xs mt-2 tracking-widest uppercase">
+        Mille Notti in Mare &copy; 2026
+      </p>
+    </footer>
+
+    <script>
+      const toggle = document.getElementById('nav-toggle');
+      const mobileNav = document.getElementById('mobile-nav');
+      toggle?.addEventListener('click', () => {
+        mobileNav?.classList.toggle('hidden');
+        mobileNav?.classList.toggle('flex');
+      });
+    </script>
+  </body>
+</html>
