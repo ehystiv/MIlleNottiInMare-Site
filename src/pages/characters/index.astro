@@ -29,7 +29,7 @@ const characters = await getCollection('characters');
           <h2 class="font-serif text-2xl font-bold text-parchment-200 mb-3 group-hover:text-rum-300 transition-colors">
             {char.data.name}
           </h2>
-          <p class="text-parchment-400 text-sm leading-relaxed line-clamp-3 italic">{char.data.background}</p>
+          <p class="text-parchment-400 text-sm leading-relaxed line-clamp-3 italic">{char.data.concept}</p>
           <div class="mt-4 flex flex-wrap gap-2">
             {char.data.skills.slice(0, 3).map((skill: string) => (
               <span class="text-xs text-rum-400/90 bg-rum-500/10 border border-rum-600/30 px-2 py-0.5 rounded">

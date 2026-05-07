@@ -29,9 +29,20 @@ const characters = defineCollection({
   schema: z.object({
     name: z.string(),
     nation: z.string(),
-    background: z.string(),
+    concept: z.string(),
     skills: z.array(z.string()),
     image: z.string().optional(),
+    status: z.enum(['vivo', 'morto']).default('vivo'),
+    background: z.array(z.string()).optional(),
+    sorcery: z.string().optional(),
+    virtue: z.object({
+      tarot: z.string().optional(),
+      name: z.string(),
+    }).optional(),
+    hubris: z.object({
+      tarot: z.string().optional(),
+      name: z.string(),
+    }).optional(),
   }),
 });
 
