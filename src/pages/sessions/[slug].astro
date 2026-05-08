@@ -12,6 +12,12 @@ export async function getStaticPaths() {
 
 const { session } = Astro.props;
 const { Content } = await session.render();
+
+const allCharacters = await getCollection('characters');
+const sessionCharacters = (session.data.characters ?? []).map((name) => {
+  const found = allCharacters.find((c) => c.data.name === name);
+  return { name, slug: found?.slug ?? null };
+});
 ---
 
 <BaseLayout title={session.data.title}>
@@ -69,6 +75,30 @@ const { Content } = await session.render();
     <div class="prose prose-parchment max-w-none">
       <Content />
     </div>
+
+    {sessionCharacters.length > 0 && (
+      <section class="mt-12 pt-8 border-t border-[rgba(101,67,20,0.3)]">
+        <h2 class="font-serif text-2xl font-bold text-[#1e1208] mb-5 flex items-center gap-3">
+          <span>⚔️</span> Personaggi
+        </h2>
+        <div class="flex flex-wrap gap-3">
+          {sessionCharacters.map(({ name, slug }) =>
+            slug ? (
+              <a
+                href={`/characters/${slug}/`}
+                class="inline-flex items-center gap-2 px-4 py-2 rounded border border-[rgba(139,96,32,0.4)] bg-[rgba(139,96,32,0.08)] text-[#5a3010] font-serif text-sm hover:bg-[rgba(139,96,32,0.18)] hover:border-[rgba(139,96,32,0.7)] transition-colors"
+              >
+                {name}
+              </a>
+            ) : (
+              <span class="inline-flex items-center gap-2 px-4 py-2 rounded border border-[rgba(101,67,20,0.25)] bg-[rgba(101,67,20,0.05)] text-[#8a6e4a] font-serif text-sm italic">
+                {name}
+              </span>
+            )
+          )}
+        </div>
+      </section>
+    )}
 
     {session.data.player_journal && session.data.player_journal.length > 0 && (
       <section class="mt-12 pt-8 border-t border-[rgba(101,67,20,0.3)]">

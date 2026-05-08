@@ -21,6 +21,8 @@ const sessions = defineCollection({
       author: z.string(),
       text: z.string(),
     })).optional(),
+    // Personaggi presenti
+    characters: z.array(z.string()).optional(),
   }),
 });
 
