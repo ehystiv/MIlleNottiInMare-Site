@@ -1,9 +1,11 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { getCollection } from 'astro:content';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
 
-const sessions = await getCollection('sessions');
-const sortedSessions = sessions.sort((a, b) => b.data.session_number - a.data.session_number);
+const sessions = await getCollection("sessions");
+const sortedSessions = sessions.sort(
+  (a, b) => b.data.session_number - a.data.session_number,
+);
 const latestSession = sortedSessions[0];
 ---
 
@@ -11,14 +13,30 @@ const latestSession = sortedSessions[0];
   <!-- Hero -->
   <section class="text-center py-16 md:py-24 relative">
     <!-- Decorazione angoli -->
-    <div class="absolute top-0 left-0 w-12 h-12 border-t-2 border-l-2 border-gold-600/50 rounded-tl"></div>
-    <div class="absolute top-0 right-0 w-12 h-12 border-t-2 border-r-2 border-gold-600/50 rounded-tr"></div>
-    <div class="absolute bottom-0 left-0 w-12 h-12 border-b-2 border-l-2 border-gold-600/50 rounded-bl"></div>
-    <div class="absolute bottom-0 right-0 w-12 h-12 border-b-2 border-r-2 border-gold-600/50 rounded-br"></div>
+    <div
+      class="absolute top-0 left-0 w-12 h-12 border-t-2 border-l-2 border-gold-600/50 rounded-tl"
+    >
+    </div>
+    <div
+      class="absolute top-0 right-0 w-12 h-12 border-t-2 border-r-2 border-gold-600/50 rounded-tr"
+    >
+    </div>
+    <div
+      class="absolute bottom-0 left-0 w-12 h-12 border-b-2 border-l-2 border-gold-600/50 rounded-bl"
+    >
+    </div>
+    <div
+      class="absolute bottom-0 right-0 w-12 h-12 border-b-2 border-r-2 border-gold-600/50 rounded-br"
+    >
+    </div>
 
-    <div class="text-rum-500/70 text-sm tracking-[0.4em] uppercase mb-4">Théah, Anno del Signore 1668</div>
-    <h1 class="font-serif text-5xl md:text-7xl font-bold text-parchment-200 mb-6 leading-tight">
-      Mille Notti<br/>
+    <div class="text-rum-500/70 text-sm tracking-[0.4em] uppercase mb-4">
+      Théah, Anno del Signore 1668
+    </div>
+    <h1
+      class="font-serif text-5xl md:text-7xl font-bold text-parchment-200 mb-6 leading-tight"
+    >
+      Mille Notti<br />
       <span class="text-gold-500 italic animate-flicker">in Mare</span>
     </h1>
     <!-- Separatore ornamentale -->
@@ -27,58 +45,111 @@ const latestSession = sortedSessions[0];
       <span class="text-gold-500 text-xl animate-bob-slow">✦</span>
       <div class="w-16 h-px bg-gold-600/60"></div>
     </div>
-    <p class="text-parchment-400 text-lg md:text-xl italic font-serif mb-8 max-w-2xl mx-auto">
+    <p
+      class="text-parchment-400 text-lg md:text-xl italic font-serif mb-8 max-w-2xl mx-auto"
+    >
       "Avventura, tesori, gloria — e grog. Soprattutto grog."
     </p>
     <p class="text-parchment-300 max-w-2xl mx-auto leading-relaxed">
-      Alla Taverna del Pescecane Smarrito ogni sera arrivano nuove voci: città perdute,
-      tesori sommersi, maledizioni millenarie e qualche bugiardo di professione.
-      Storie di eroi (e criminali) che navigano le acque di Théah in cerca di fama,
-      fortuna e — perché no — sopravvivenza. Sessioni OneShot e micro-avventure,
-      nessun party fisso, nessuna regola fissa. Solo il mare e chi lo affronta.
+      Alla Taverna del Pescecane Smarrito ogni sera arrivano nuove voci: città
+      perdute, tesori sommersi, maledizioni millenarie e qualche bugiardo di
+      professione. Storie di eroi (e criminali) che navigano le acque di Théah
+      in cerca di fama, fortuna e — perché no — sopravvivenza. Sessioni OneShot
+      e micro-avventure, nessun party fisso, nessuna regola fissa. Solo il mare
+      e chi lo affronta.
     </p>
   </section>
 
   <!-- Quick links -->
-  <section class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-    {[
-      { href: '/sessions/', icon: '📜', label: 'Diario Sessioni', desc: 'Resoconto di ogni seduta', iconClass: 'animate-bob' },
-      { href: '/characters/', icon: '⚔️', label: 'Personaggi', desc: 'Schede dei PG', iconClass: 'animate-bob-delayed' },
-      { href: '/npcs/', icon: '🎭', label: 'PNG', desc: 'Alleati e antagonisti', iconClass: 'animate-bob-slow' },
-      { href: '/lore/', icon: '🗺️', label: 'Lore', desc: 'Geografia, storia e magia', iconClass: 'animate-bob' },
-    ].map(({ href, icon, label, desc, iconClass }) => (
-      <a href={href} class="group relative block bg-wood-800 border border-gold-600/30 rounded p-5 hover:border-rum-500/60 hover:bg-wood-700 transition-all duration-300">
-        <div class={`text-2xl mb-3 ${iconClass}`}>{icon}</div>
-        <h2 class="font-serif font-bold text-parchment-200 mb-1 group-hover:text-rum-300 transition-colors">{label}</h2>
-        <p class="text-parchment-500 text-sm">{desc}</p>
-        <div class="absolute bottom-3 right-4 text-gold-600/40 group-hover:text-gold-500 transition-colors text-lg">→</div>
-      </a>
-    ))}
+  <section class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    {
+      [
+        {
+          href: "/sessions/",
+          icon: "📜",
+          label: "Diario Sessioni",
+          desc: "Resoconto di ogni giocata",
+          iconClass: "animate-bob",
+        },
+        {
+          href: "/characters/",
+          icon: "⚔️",
+          label: "Personaggi",
+          desc: "Schede dei PG",
+          iconClass: "animate-bob-delayed",
+        },
+        {
+          href: "/npcs/",
+          icon: "🎭",
+          label: "PNG",
+          desc: "Alleati e antagonisti",
+          iconClass: "animate-bob-slow",
+        },
+        // {
+        //   href: "/lore/",
+        //   icon: "🗺️",
+        //   label: "Lore",
+        //   desc: "Geografia, storia e magia",
+        //   iconClass: "animate-bob",
+        // },
+      ].map(({ href, icon, label, desc, iconClass }) => (
+        <a
+          href={href}
+          class="group relative block bg-wood-800 border border-gold-600/30 rounded p-5 hover:border-rum-500/60 hover:bg-wood-700 transition-all duration-300"
+        >
+          <div class={`text-2xl mb-3 ${iconClass}`}>{icon}</div>
+          <h2 class="font-serif font-bold text-parchment-200 mb-1 group-hover:text-rum-300 transition-colors">
+            {label}
+          </h2>
+          <p class="text-parchment-500 text-sm">{desc}</p>
+          <div class="absolute bottom-3 right-4 text-gold-600/40 group-hover:text-gold-500 transition-colors text-lg">
+            →
+          </div>
+        </a>
+      ))
+    }
   </section>
 
   <!-- Ultima sessione -->
-  {latestSession && (
-    <section class="mt-16">
-      <div class="flex items-center gap-4 mb-6">
-        <h2 class="font-serif text-2xl font-bold text-parchment-200">Ultima sessione</h2>
-        <div class="flex-1 h-px bg-gold-600/25"></div>
-        <a href="/sessions/" class="text-gold-500 text-sm hover:text-rum-300 transition-colors">Tutte →</a>
-      </div>
-      <a href={`/sessions/${latestSession.slug}/`} class="group block bg-wood-800 border border-gold-600/30 rounded p-6 hover:border-rum-500/60 transition-all duration-300">
-        <div class="flex items-baseline gap-3 mb-3">
-          <span class="text-gold-500 font-mono text-sm tracking-wider">
-            Sessione #{String(latestSession.data.session_number).padStart(3, '0')}
-          </span>
-          <span class="text-parchment-500/40">—</span>
-          <span class="text-parchment-500 text-sm">
-            {latestSession.data.date.toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' })}
-          </span>
+  {
+    latestSession && (
+      <section class="mt-16">
+        <div class="flex items-center gap-4 mb-6">
+          <h2 class="font-serif text-2xl font-bold text-parchment-200">
+            Ultima sessione
+          </h2>
+          <div class="flex-1 h-px bg-gold-600/25" />
+          <a
+            href="/sessions/"
+            class="text-gold-500 text-sm hover:text-rum-300 transition-colors"
+          >
+            Tutte →
+          </a>
         </div>
-        <h3 class="font-serif text-2xl font-bold text-parchment-200 mb-3 group-hover:text-rum-300 transition-colors">
-          {latestSession.data.title}
-        </h3>
-        <p class="text-parchment-400 italic">{latestSession.data.summary}</p>
-      </a>
-    </section>
-  )}
+        <a
+          href={`/sessions/${latestSession.slug}/`}
+          class="group block bg-wood-800 border border-gold-600/30 rounded p-6 hover:border-rum-500/60 transition-all duration-300"
+        >
+          <div class="flex items-baseline gap-3 mb-3">
+            <span class="text-gold-500 font-mono text-sm tracking-wider">
+              Sessione #
+              {String(latestSession.data.session_number).padStart(3, "0")}
+            </span>
+            <span class="text-parchment-500/40">—</span>
+            <span class="text-parchment-500 text-sm">
+              {latestSession.data.date.toLocaleDateString("it-IT", {
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+              })}
+            </span>
+          </div>
+          <h3 class="font-serif text-2xl font-bold text-parchment-200 mb-3 group-hover:text-rum-300 transition-colors">
+            {latestSession.data.title}
+          </h3>
+          <p class="text-parchment-400 italic">{latestSession.data.summary}</p>
+        </a>
+      </section>
+    )
+  }
 </BaseLayout>
