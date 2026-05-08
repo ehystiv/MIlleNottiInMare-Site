@@ -41,32 +41,38 @@ const { Content } = await char.render();
       </div>
 
       <div class="flex items-center gap-2 mb-1">
-        <span class="text-gold-500/70 text-xs tracking-widest uppercase">{char.data.nation}</span>
-        {char.data.status === 'morto' && (
-          <span class="text-xs px-1.5 py-0.5 rounded bg-red-900/40 border border-red-700/40 text-red-400 tracking-wide uppercase font-sans">
-            Morto
-          </span>
-        )}
+        <span class="text-gold-500/70 text-xs tracking-widest uppercase"
+          >{char.data.nation}</span
+        >
+        {
+          char.data.status === "morto" && (
+            <span class="text-xs px-1.5 py-0.5 rounded bg-red-900/40 border border-red-700/40 text-red-400 tracking-wide uppercase font-sans">
+              Morto
+            </span>
+          )
+        }
       </div>
       <h1 class="font-serif text-3xl font-bold text-parchment-200 mb-5">
         {char.data.name}
       </h1>
 
-      {char.data.background && char.data.background.length > 0 && (
-        <div class="bg-wood-800 border border-gold-600/30 rounded p-4">
-          <h3 class="text-xs uppercase tracking-widest text-gold-500/60 mb-3">
-            Background
-          </h3>
-          <ul class="space-y-2">
-            {char.data.background.map((item: string) => (
-              <li class="flex items-center gap-2 text-sm text-parchment-300">
-                <span class="text-gold-500 shrink-0">◆</span>
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+      {
+        char.data.background && char.data.background.length > 0 && (
+          <div class="bg-wood-800 border border-gold-600/30 rounded p-4">
+            <h3 class="text-xs uppercase tracking-widest text-gold-500/60 mb-3">
+              Background
+            </h3>
+            <ul class="space-y-2">
+              {char.data.background.map((item: string) => (
+                <li class="flex items-center gap-2 text-sm text-parchment-300">
+                  <span class="text-gold-500 shrink-0">◆</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )
+      }
 
       <div class="bg-wood-800 border border-gold-600/30 rounded p-4 mt-4">
         <h3 class="text-xs uppercase tracking-widest text-gold-500/60 mb-3">
@@ -125,17 +131,23 @@ const { Content } = await char.render();
         )
       }
 
-      {char.data.sorcery && (
-        <div class="bg-wood-800 border border-gold-600/30 rounded p-4 mt-4">
-          <h3 class="text-xs uppercase tracking-widest text-gold-500/60 mb-2">
-            Stregoneria
-          </h3>
-          <div class="flex items-center gap-2">
-            <span class="shrink-0 text-violet-400 animate-sorcery-glow">✦</span>
-            <p class="text-sm font-serif font-bold text-parchment-200">{char.data.sorcery}</p>
+      {
+        char.data.sorcery && (
+          <div class="bg-wood-800 border border-gold-600/30 rounded p-4 mt-4">
+            <h3 class="text-xs uppercase tracking-widest text-gold-500/60 mb-2">
+              Stregoneria
+            </h3>
+            <div class="flex items-center gap-2">
+              <span class="shrink-0 text-violet-400 animate-sorcery-glow">
+                ✦
+              </span>
+              <p class="text-sm font-serif font-bold text-parchment-200">
+                {char.data.sorcery}
+              </p>
+            </div>
           </div>
-        </div>
-      )}
+        )
+      }
     </div>
 
     <!-- Contenuto principale -->
